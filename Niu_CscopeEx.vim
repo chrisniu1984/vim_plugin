@@ -27,6 +27,18 @@ endif
 
 let loaded_niu_csthis = 1
 
+if has("cscope")
+set cscopequickfix=c-,e-,t-,s-
+set cst
+
+nmap <C-n>  :cn<CR>
+nmap <C-p>  :cp<CR>
+nmap <C-l>  :cl<CR>
+nmap <C-c>      :cs f c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-c><C-c> :cs f s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-c><C-g> :cs f e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-c><C-f> :cs f f <C-R>=expand("%:t:r")<CR><CR>
+
 function Niu_Csthis()
     let l:find = 'find ./ ! -type l -name "*.h" '
     let l:find = l:find . '-o -name "*.c" '
@@ -41,6 +53,8 @@ function Niu_Csthis()
     call system("rm -f cscope.files")
     cs reset
 endfunction
-
 command CSTHIS call Niu_Csthis()
+
+endif
+
 
